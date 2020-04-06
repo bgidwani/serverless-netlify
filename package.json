@@ -11,7 +11,8 @@
   "author": "Bharat Gidwani",
   "license": "ISC",
   "dependencies": {
-    "netlify-lambda": "^1.6.3"
+    "netlify-lambda": "^1.6.3",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "husky": "^4.2.3",
