@@ -6,7 +6,7 @@
   "scripts": {
     "prod": "npm run build:lambda",
     "start:lambda": "netlify-lambda serve .server-functions",
-    "build:lambda": "netflify-lambda build .server-functions"
+    "build:lambda": "netlify-lambda build .server-functions"
   },
   "author": "Bharat Gidwani",
   "license": "ISC",
