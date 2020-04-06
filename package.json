@@ -4,6 +4,7 @@
   "description": "Repo containing api endpoints hosted within Netlify",
   "main": "index.js",
   "scripts": {
+    "prod": "npm run build:lambda",
     "start:lambda": "netlify-lambda serve .server-functions",
     "build:lambda": "netflify-lambda build .server-functions"
   },
