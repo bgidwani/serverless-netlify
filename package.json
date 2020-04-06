@@ -1,0 +1,20 @@
+{
+  "name": "serverless-netlify",
+  "version": "1.0.0",
+  "description": "Repo containing api endpoints hosted within Netlify",
+  "main": "index.js",
+  "scripts": {
+    "start:lambda": "netlify-lambda serve .server-functions",
+    "build:lambda": "netflify-lambda build .server-functions"
+  },
+  "author": "Bharat Gidwani",
+  "license": "ISC",
+  "dependencies": {
+    "netlify-lambda": "^1.6.3"
+  },
+  "devDependencies": {
+    "husky": "^4.2.3",
+    "prettier": "^2.0.4",
+    "pretty-quick": "^2.0.1"
+  }
+}
