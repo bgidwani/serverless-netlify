@@ -2,7 +2,7 @@ const req = require('request');
 
 exports.handler = (event, context, callback) => {
     const baseUrl = 'https://newsapi.org/v2';
-    console.log(event.httpMethod);
+    //console.log(event.httpMethod);
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
@@ -18,17 +18,35 @@ exports.handler = (event, context, callback) => {
             });
             return;
         case 'POST':
-            const { category } = JSON.parse(event.body);
-            const newsApiKey = process.env.NEWS_API_KEY;
+            const { category, query, checkeverything } = JSON.parse(event.body);
+            const newsApiKey = process.env.NEWS_API_KEY || '8658a63780d54f118cd970007d6baf48';
+            let usingEverythingRoute = false;
             const params = {
                 url: ''
             };
 
-            if (!category) {
-                params.url = `${baseUrl}/top-headlines?language=en&country=us&apiKey=${newsApiKey}`
-            } else {
-                params.url = `${baseUrl}/top-headlines?category=${category}&language=en&country=us&apiKey=${newsApiKey}`
+            let route = 'top-headlines';
+            if (checkeverything && query) {
+                route = 'everything';
+                usingEverythingRoute = true;
             }
+
+            const defaultparams = `language=en&sortBy=popularity&apiKey=${newsApiKey}`;
+            params.url = `${baseUrl}/${route}?${defaultparams}`;
+            if (!usingEverythingRoute) {
+                //append country and category, ONLY if not using everything route
+                params.url = `${params.url}&country=us`;
+
+                if (category) {
+                    params.url = `${params.url}&category=${category}`;
+                }
+            } else {
+                if (query) {
+                    params.url = `${params.url}&q=${query}`
+                }
+            }
+
+            //console.log(params.url);
 
             req.get(params, (err, res, body) => {
                 if (err) {
